@@ -1,0 +1,46 @@
+### Recuperar todas las peliculas
+GET http://localhost:3000/v1/movies
+
+
+### Recuperar un peliculas por su ID (path params)
+GET http://localhost:3000/v1/movies/ded02dfb-bafe-11ee-97d5-f25111610339
+
+### Recuperar peliculas por genero (query params)
+GET http://localhost:3000/v1/movies?genre=ACTION
+
+### Recuperar libros por genero (query params)
+GET http://localhost:3000/v1/movies?genre=["Action","Adventure"]
+
+### Crear una pelicula.
+POST http://localhost:3000/v1/movies
+Content-Type: application/json
+
+{
+  "title": "The Godfather 2",
+  "year": 1990,
+  "director": "Francis Ford Coppola",
+  "duration": 120,
+  "poster": "https://product-image.juniqe-production.juniqe.com/media/catalog/product/seo-cache/x800/92/412/92-412-101P/The-Godfather-Naxart-Poster.jpg",
+  "genre": ["Action", "Drama"],
+  "rate": 5
+}
+
+### Crear una pelicula enviando datos con errores
+POST http://localhost:3000/v1/movies
+Content-Type: application/json
+
+{
+  "title": 1,
+  "year": "sdsd"
+}
+
+### Actualizar una parte de la pelicula
+PATCH http://localhost:3000/v1/movies/06d84901-bb16-11ee-97e0-c6a2edbee720
+Content-Type: application/json
+
+{
+  "year": 2024
+}
+
+### Eliminar una pelicula
+DELETE  http://localhost:3000/v1/movies/d0081105-bb15-11ee-97e0-c6a2edbee720

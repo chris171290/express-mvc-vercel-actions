@@ -1,0 +1,335 @@
+{
+    "openapi":"3.1.0",
+    "info": {
+      "title":"API Movies",
+      "summary": "A movies manager.",
+      "description": "This is a REST API application made with Express using MVC patterns and documented with Swagger.",
+      "termsOfService": "https://www.christiansantanas.com",
+      "contact": {
+        "name": "Christian Santanas for support or feedback",
+        "url": "https://www.christiansantanas.com",
+        "email": "christian_santana.r@hotmail.com"
+      },
+      "license": {
+        "name": "MIT ",
+        "url": "https://opensource.org/license/mit/"
+      },
+      "version":"1.0.0"
+    },
+    "servers": [
+      {
+        "url":"https://express-mvc-five.vercel.app/v1",
+        "description": "Dev server"
+      },
+      {
+        "url":"https://express-mvc-five.vercel.app/v1",
+        "description": "Pro server"
+      }
+    ],
+    "tags": [
+      { "name": "Movies", "description": "Movies operations" }
+    ],
+    "components": {
+      "schemas": {
+        "Movie": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "description": "The auto-generated id of the movie"
+            },
+            "title":{
+              "type": "string",
+              "description": "The title of the movie"
+            },
+            "year":{
+              "type": "number",
+              "format": "int32",
+              "minimum": 1900,
+              "description": "The year of the movie"
+            },
+            "director":{
+              "type": "string",
+              "description": "The director of the movie"
+            },
+            "duration":{
+              "type": "number",
+              "format": "int32",
+              "minimum": 1,
+              "description": "The duration of the movie"
+            },
+            "poster":{
+              "type": "string",
+              "format": "uri",
+              "description": "The url poster of the movie"
+            },
+            "genrer":{
+              "type": "array",
+              "items":{"type": "string"},
+              "description": "the genre of the move"
+            },
+            "rate":{
+              "type": "number",
+              "format": "int32",
+              "description": "The rate of the movie"
+            }
+          },
+          "required": ["title", "year", "director", "duration", "poster", "rate"]
+        },
+        "CreateMovie": {
+          "type": "object",
+          "properties": {
+            "title":{
+              "type": "string",
+              "description": "The title of the movie"
+            },
+            "year":{
+              "type": "number",
+              "format": "int32",
+              "minimum": 1900,
+              "description": "The year of the movie"
+            },
+            "director":{
+              "type": "string",
+              "description": "The director of the movie"
+            },
+            "duration":{
+              "type": "number",
+              "format": "int32",
+              "minimum": 1,
+              "description": "The duration of the movie"
+            },
+            "poster":{
+              "type": "string",
+              "format": "uri",
+              "description": "The url poster of the movie"
+            },
+            "genrer":{
+              "type": "array",
+              "items":{"type": "string"},
+              "description": "the genre of the move"
+            },
+            "rate":{
+              "type": "number",
+              "format": "int32",
+              "description": "The rate of the movie"
+            }
+          },
+          "required": ["title", "year", "director", "duration", "poster", "genrer", "rate"]
+        },
+        "Movies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Movie"
+          }
+        },
+        "ErrorMessage" :{
+          "type": "object",
+          "properties": {
+            "success":{
+              "type": "boolean",
+              "description": "The status of process"
+            },
+            "status": {
+              "type": "number",
+              "format": "int32",
+              "description": "The http status code"
+            },
+            "message": {
+              "type": "string",
+              "description": "The description of the error"
+            },
+            "stack": {
+              "type": "object",
+              "description": "The stack of error"
+            }
+          }
+        }
+      }
+    },
+    "paths": {
+      "/movies": {
+        "get": {
+          "description": "Returns all movies",
+          "summary": "Get all movies",
+          "operationId": "getMovies",
+          "tags": ["Movies"],
+          "responses": {
+            "200": {
+              "description": "Get all movies.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Movies"
+                  }
+                },
+                "application/xml": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Movies"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Movie not found"
+            }
+          }
+        },
+        "post": {
+          "description": "Create a movie",
+          "summary": "Create movie",
+          "operationId": "createMovie",
+          "tags": ["Movies"],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json":{
+                "schema":{
+                  "$ref": "#/components/schemas/CreateMovie"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Movie created",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                },
+                "application/xml": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad request",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorMessage"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Some server error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ErrorMessage"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/movies/{id}": {
+        "get": {
+          "description": "Returns a movies by id",
+          "summary": "Get movie by id",
+          "operationId": "getMovieById",
+          "tags": ["Movies"],
+          "parameters": [
+            {
+              "name": "id", 
+              "in": "path",
+              "description": "movie's id",
+              "required": true ,
+              "schema": {"type": "string", "format": "uuid"}
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Get a movie by id.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                },
+                "application/xml": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Movie not found"
+            }
+          }
+        },
+        "delete": {
+          "description": "Delete a movies by id",
+          "summary": "Delete movie by id",
+          "operationId": "deleteMovieById",
+          "tags": ["Movies"],
+          "parameters": [
+            {
+              "name": "id", 
+              "in": "path",
+              "description": "movie's id",
+              "required": true ,
+              "schema": {"type": "string", "format": "uuid"}
+            }
+          ],
+          "responses": {
+            "200": { "description": "Deleted movie" },
+            "404": { "description": "Movie not found" }
+          }
+        },
+        "patch": {
+          "description": "Update a movie",
+          "summary": "Update movie",
+          "operationId": "updateMovie",
+          "tags": ["Movies"],
+          "parameters": [
+            {
+              "name": "id", 
+              "in": "path",
+              "description": "movie's id",
+              "required": true ,
+              "schema": {"type": "string", "format": "uuid"}
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json":{
+                "schema":{
+                  "$ref": "#/components/schemas/CreateMovie"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Movie updated",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                },
+                "application/xml": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Movie"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Some server error"
+            }
+          }
+        }
+      }
+    }
+  }

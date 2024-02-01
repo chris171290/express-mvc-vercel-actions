@@ -1,0 +1,32 @@
+{
+  "cSpell.enabled": false,
+  "sqltools.connections": [
+    {
+      "mysqlOptions": {
+        "authProtocol": "default"
+      },
+      "previewLimit": 50,
+      "server": "maticdb.cpbkbvwdzvvf.us-east-1.rds.amazonaws.com",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "matic",
+      "database": "matic",
+      "username": "admin",
+      "password": "adminMatic"
+    },
+    {
+      "mysqlOptions": {
+        "authProtocol": "default",
+        "enableSsl": "Disabled"
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 3306,
+      "driver": "MySQL",
+      "name": "test",
+      "username": "root",
+      "database": "test",
+      "askForPassword": true
+    }
+  ]
+}

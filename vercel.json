@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "devCommand": "npm run dev",
+  "builds": [
+   {
+    "src": "src/server-with-mysql.js",
+    "use": "@vercel/node",
+    "config": { "includeFiles": ["src/dist/**"] }
+   },
+   {
+    "src": "public/**",
+    "use": "@vercel/static"
+   }
+  ],
+  "routes": [
+    {
+      "src": "/public(.+)",
+      "dest": "public/$1" 
+    },
+    {
+      "src": "/(.+)",
+      "dest": "/src/server-with-mysql.js"
+    },
+    {
+      "src": "/",
+      "dest": "/src/server-with-mysql.js"
+    }    
+  ]
+ }

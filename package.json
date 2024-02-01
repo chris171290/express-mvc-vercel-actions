@@ -1,0 +1,40 @@
+{
+  "name": "express-mvc-vercel-actions",
+  "version": "1.0.0",
+  "description": "Rest Api - MVC pattern",
+  "type": "module",
+  "main": "server-with-mysql.js",
+  "scripts": {
+    "start": "node ./src/server-with-mysql.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js  --verbose",
+    "dev": "node --env-file=.env --watch ./src/app.js",
+    "dev:mysql": "node --env-file=.env --watch ./src/server-with-mysql.js",
+    "dev:local": "node --env-file=.env --watch ./src/server-with-local.js"
+  },
+  "keywords": [
+    "express",
+    "mvc"
+  ],
+  "author": "Christian Santanas",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "2.8.5",
+    "express": "4.18.2",
+    "morgan": "1.10.0",
+    "mysql2": "3.6.5",
+    "swagger-ui-express": "4.6.3",
+    "zod": "3.22.4"
+  },
+  "devDependencies": {
+    "eslint": "8.56.0",
+    "eslint-config-async": "2.0.2",
+    "eslint-config-standard": "17.1.0",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-n": "16.6.1",
+    "eslint-plugin-promise": "6.1.1",
+    "jest": "29.7.0",
+    "servor": "4.0.2",
+    "standart": "6.1.0",
+    "supertest": "6.3.4"
+  }
+}
