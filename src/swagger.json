@@ -37,42 +37,42 @@
             "id": {
               "type": "string",
               "format": "uuid",
-              "description": "The auto-generated id of the movie"
+              "description": "The auto-generated id of the movie."
             },
             "title":{
               "type": "string",
-              "description": "The title of the movie"
+              "description": "The title of the movie."
             },
             "year":{
               "type": "number",
               "format": "int32",
               "minimum": 1900,
-              "description": "The year of the movie"
+              "description": "The year of the movie-"
             },
             "director":{
               "type": "string",
-              "description": "The director of the movie"
+              "description": "The director of the movie."
             },
             "duration":{
               "type": "number",
               "format": "int32",
               "minimum": 1,
-              "description": "The duration of the movie"
+              "description": "The duration of the movie."
             },
             "poster":{
               "type": "string",
               "format": "uri",
-              "description": "The url poster of the movie"
+              "description": "The url poster of the movie."
             },
             "genrer":{
               "type": "array",
               "items":{"type": "string"},
-              "description": "the genre of the move"
+              "description": "the genre of the move."
             },
             "rate":{
               "type": "number",
               "format": "int32",
-              "description": "The rate of the movie"
+              "description": "The rate of the movie."
             }
           },
           "required": ["title", "year", "director", "duration", "poster", "rate"]
