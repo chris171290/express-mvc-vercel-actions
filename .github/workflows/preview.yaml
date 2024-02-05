@@ -8,7 +8,23 @@ on:
     branches-ignore:
       - main
 jobs:
+  Eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependecies
+        run: npm ci
+
+      - name: Lint
+        run: npm run eslint
+
   Deploy-Preview:
+    needs: [Eslint]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

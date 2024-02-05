@@ -9,7 +9,8 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js  --verbose",
     "dev": "node --env-file=.env --watch ./src/app.js",
     "dev:mysql": "node --env-file=.env --watch ./src/server-with-mysql.js",
-    "dev:local": "node --env-file=.env --watch ./src/server-with-local.js"
+    "dev:local": "node --env-file=.env --watch ./src/server-with-local.js",
+    "eslint": "eslint ./**/*.{js,jsx}"
   },
   "keywords": [
     "express",
