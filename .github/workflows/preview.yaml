@@ -8,7 +8,7 @@ on:
     branches-ignore:
       - main
 jobs:
-  Test:
+  Eslint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -24,7 +24,7 @@ jobs:
         run: npm run eslint
 
   Deploy-Preview:
-    needs: [Test]
+    needs: [Eslint]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
