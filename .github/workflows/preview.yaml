@@ -12,11 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Cancel Previus Redundant Builds
-        uses: styfle/cancel-workflow-action@0.9.1
+        uses: styfle/cancel-workflow-action
         with:
           access_token: ${{ github.token }}
+          only_status: 'waiting'
   Eslint:
-    needs: [Avoid_reduncy]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -32,7 +32,6 @@ jobs:
         run: npm run eslint
 
   Test:
-    needs: [Avoid_reduncy]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -48,7 +47,7 @@ jobs:
         run: npm run test
 
   Deploy-Preview:
-    needs: [Avoid_reduncy, Eslint, Test]
+    needs: [Eslint, Test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
