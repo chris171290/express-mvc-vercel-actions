@@ -8,14 +8,23 @@ on:
     branches-ignore:
       - main
 jobs:
+  Avoid_reduncy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previus Redundant Builds
+        uses: styfle/cancel-workflow-action@0.12.1
+        with:
+          access_token: ${{ github.token }}
+          only_status: 'waiting'
   Eslint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Install dependecies
         run: npm ci
@@ -23,11 +32,27 @@ jobs:
       - name: Lint
         run: npm run eslint
 
-  Deploy-Preview:
-    needs: [Eslint]
+  Test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependecies
+        run: npm ci
+
+      - name: Jest
+        run: npm run test
+
+  Deploy-Preview:
+    needs: [Eslint, Test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
@@ -39,4 +64,6 @@ jobs:
         run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
         
       - name: Deploy Project Artifacts to Vercel
-        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+        run: |
+          url="$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})"
+          vercel alias --token=${{ secrets.VERCEL_TOKEN }} set "$url" express-mvc-vercel-actions-preview.vercel.app
