@@ -16,6 +16,7 @@ jobs:
         with:
           access_token: ${{ github.token }}
   Eslint:
+    needs: [Avoid_reduncy]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -29,8 +30,9 @@ jobs:
 
       - name: Lint
         run: npm run eslint
-        
+
   Test:
+    needs: [Avoid_reduncy]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
