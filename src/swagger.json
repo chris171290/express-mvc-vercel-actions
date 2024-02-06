@@ -27,7 +27,8 @@
       }
     ],
     "tags": [
-      { "name": "Movies", "description": "Movies operations" }
+      { "name": "Movies", "description": "Movies operations" },
+      { "name": "Health", "description": "Health Checker" }
     ],
     "components": {
       "schemas": {
