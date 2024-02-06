@@ -7,6 +7,14 @@ on:
     branches:
       - main
 jobs:
+  Avoid_reduncy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previus Redundant Builds
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
   Eslint:
     runs-on: ubuntu-latest
     steps:
@@ -22,8 +30,23 @@ jobs:
       - name: Lint
         run: npm run eslint
 
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependecies
+        run: npm ci
+
+      - name: Jest
+        run: npm run test
+
   Deploy-Production:
-    needs: [Eslint]
+    needs: [Avoid_reduncy, Eslint, Test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
