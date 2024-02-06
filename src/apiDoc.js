@@ -20,5 +20,5 @@ const swaggerUIOptions = {
 }
 
 export const swaggerDocs = (app) => {
-  app.use('/api-docs/v1', swaggerUI.serve, swaggerUI.setup(swaggerJson, swaggerUIOptions))
+  app.use('/v1/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJson, swaggerUIOptions))
 }
