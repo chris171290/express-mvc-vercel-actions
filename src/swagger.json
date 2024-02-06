@@ -18,11 +18,11 @@
     },
     "servers": [
       {
-        "url":"https://express-mvc-five.vercel.app/v1",
+        "url":"https://express-mvc-vercel-actions-preview.vercel.app/v1",
         "description": "Dev server"
       },
       {
-        "url":"https://express-mvc-five.vercel.app/v1",
+        "url":"https://express-mvc-vercel-actions.vercel.app/v1",
         "description": "Pro server"
       }
     ],
